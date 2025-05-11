@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #000;
+      width: 320px;
+    }
+
+    .header {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: orange;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    #result {
+      width: 100%;
+      height: 60px;
+      font-size: 24px;
+      text-align: right;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #000;
+      color: orange;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      height: 60px;
+      font-size: 22px;
+      border: none;
+      border-radius: 8px;
+      background: #2b2b2b;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: orange;
+      color: #000;
+    }
+
+    .orange {
+      background: orange;
+      color: black;
+    }
+
+    .orange:hover {
+      background: #ffa733;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .icon {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="header">🧮 Calculator</div>
+    <input type="text" id="result" disabled>
+    <div class="buttons">
+      <button onclick="clearResult()" class="orange">C</button>
+      <button onclick="backspace()"><span class="icon">⌫</span></button>
+      <button onclick="press('%')">%</button>
+      <button onclick="press('/')">÷</button>
+
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('*')">×</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('-')">−</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('+')">+</button>
+
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="toggleSign()">±</button>
+      <button onclick="squareRoot()">√</button>
+
+      <button class="wide orange" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let result = document.getElementById('result');
+
+    function press(val) {
+      result.value += val;
+    }
+
+    function calculate() {
+      try {
+        result.value = eval(result.value);
+      } catch {
+        result.value = "Error";
+      }
+    }
+
+    function clearResult() {
+      result.value = '';
+    }
+
+    function backspace() {
+      result.value = result.value.slice(0, -1);
+    }
+
+    function toggleSign() {
+      if (result.value) {
+        if (result.value.startsWith('-')) {
+          result.value = result.value.substring(1);
+        } else {
+          result.value = '-' + result.value;
+        }
+      }
+    }
+
+    function squareRoot() {
+      try {
+        result.value = Math.sqrt(parseFloat(result.value)).toFixed(5);
+      } catch {
+        result.value = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
